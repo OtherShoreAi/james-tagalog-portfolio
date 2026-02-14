@@ -802,7 +802,7 @@ p {
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-lg);
 }
 
@@ -857,26 +857,13 @@ p {
   background: var(--color-text-tertiary);
 }
 
-.skills-cloud {
-  margin-top: var(--space-3xl);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-xl);
-}
-
-.skills-cloud__label {
-  font-family: var(--font-mono);
-  font-size: var(--font-small);
-  color: var(--color-text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: var(--space-md);
-}
-
-.skills-cloud__tags {
+.service-card__tags {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
 }
 
 /* ================================================
@@ -1258,10 +1245,6 @@ button:focus-visible {
 
   /* Services: stack on tablet */
   .services-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .skills-cloud {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -1459,10 +1442,6 @@ button:focus-visible {
 
   .service-card__title {
     font-size: 0.9rem;
-  }
-
-  .skills-cloud {
-    grid-template-columns: 1fr;
   }
 
   /* ---- Process: single column ---- */
