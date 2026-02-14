@@ -495,50 +495,6 @@ p {
    9. SECTION: SKILLS
    ================================================ */
 
-.section--skills {
-  min-height: auto;
-  padding-top: var(--section-padding);
-  padding-bottom: var(--section-padding);
-}
-
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-2xl);
-}
-
-.skill-category {
-  padding: var(--space-xl);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  background: var(--color-surface);
-  transition: all var(--transition-fast);
-}
-
-.skill-category:hover {
-  border-color: var(--color-border-hover);
-  box-shadow: 0 12px 40px var(--color-shadow);
-  transform: translateY(-2px);
-}
-
-.skill-category__title {
-  font-family: var(--font-display);
-  font-size: var(--font-h3);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-lg);
-  padding-bottom: var(--space-md);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.skill-category__list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-}
-
 /* ================================================
    10. SECTION: PROJECTS
    ================================================ */
@@ -604,6 +560,14 @@ p {
   color: var(--color-text-secondary);
   margin-bottom: var(--space-lg);
   max-width: 55ch;
+}
+
+.project-card__outcome {
+  font-family: var(--font-mono);
+  font-size: var(--font-small);
+  color: var(--color-accent, var(--color-text-primary));
+  font-weight: 500;
+  margin-bottom: var(--space-lg);
 }
 
 .project-card__tags {
@@ -797,24 +761,13 @@ p {
   flex-shrink: 0;
 }
 
-.about__photo-placeholder {
+.about__headshot {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  background: var(--color-surface);
   border: 2px solid var(--color-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.about__initials {
-  font-family: var(--font-display);
-  font-size: 3.5rem;
-  font-weight: 600;
-  color: var(--color-text-tertiary);
-  letter-spacing: -0.02em;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .about__text {
@@ -849,7 +802,7 @@ p {
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-lg);
 }
 
@@ -902,6 +855,28 @@ p {
   height: 4px;
   border-radius: 50%;
   background: var(--color-text-tertiary);
+}
+
+.skills-cloud {
+  margin-top: var(--space-3xl);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-xl);
+}
+
+.skills-cloud__label {
+  font-family: var(--font-mono);
+  font-size: var(--font-small);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-md);
+}
+
+.skills-cloud__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
 }
 
 /* ================================================
@@ -1276,17 +1251,17 @@ button:focus-visible {
     gap: var(--space-2xl);
   }
 
-  .about__photo-placeholder {
+  .about__headshot {
     width: 150px;
     height: 150px;
   }
 
-  .about__initials {
-    font-size: 3rem;
+  /* Services: stack on tablet */
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  /* Services: 2x2 grid on tablet */
-  .services-grid {
+  .skills-cloud {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -1299,11 +1274,6 @@ button:focus-visible {
   /* Process: stack to 1-col on tablet (3-col too cramped) */
   .process-grid {
     grid-template-columns: 1fr;
-    gap: var(--space-lg);
-  }
-
-  .skills-grid {
-    grid-template-columns: 1fr 1fr;
     gap: var(--space-lg);
   }
 
@@ -1458,13 +1428,9 @@ button:focus-visible {
     gap: var(--space-2xl);
   }
 
-  .about__photo-placeholder {
+  .about__headshot {
     width: 140px;
     height: 140px;
-  }
-
-  .about__initials {
-    font-size: 2.5rem;
   }
 
   .about__text .section__title {
@@ -1481,9 +1447,9 @@ button:focus-visible {
     margin-right: auto;
   }
 
-  /* ---- Services: 2-col on wider phones, 1-col on narrow ---- */
+  /* ---- Services: single column on mobile ---- */
   .services-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: var(--space-md);
   }
 
@@ -1493,6 +1459,10 @@ button:focus-visible {
 
   .service-card__title {
     font-size: 0.9rem;
+  }
+
+  .skills-cloud {
+    grid-template-columns: 1fr;
   }
 
   /* ---- Process: single column ---- */
@@ -1508,11 +1478,6 @@ button:focus-visible {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-  }
-
-  /* ---- Skills: single column ---- */
-  .skills-grid {
-    grid-template-columns: 1fr;
   }
 
   /* ---- Projects: stack vertically ---- */
