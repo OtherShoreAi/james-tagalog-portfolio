@@ -802,8 +802,12 @@ p {
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-lg);
+}
+
+.service-card--tools {
+  grid-column: 1 / -1;
 }
 
 .service-card {
@@ -861,9 +865,7 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
-  margin-top: var(--space-lg);
-  padding-top: var(--space-lg);
-  border-top: 1px solid var(--color-border);
+  margin-top: var(--space-md);
 }
 
 /* ================================================
