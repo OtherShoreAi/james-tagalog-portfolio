@@ -981,6 +981,10 @@ p {
   background: var(--color-text-tertiary);
 }
 
+.process-card p + p {
+  margin-top: var(--space-md);
+}
+
 /* ================================================
    CONTACT CTA BUTTON
    ================================================ */
