@@ -43,6 +43,7 @@
       <li><a href="#about" class="nav__link" data-section="about">About</a></li>
       <li><a href="#services" class="nav__link" data-section="services">Services</a></li>
       <li><a href="#projects" class="nav__link" data-section="projects">Projects</a></li>
+      <li><a href="#demo" class="nav__link" data-section="demo">Demo</a></li>
       <li><a href="#process" class="nav__link" data-section="process">Process</a></li>
       <li><a href="#contact" class="nav__link" data-section="contact">Contact</a></li>
       <li><a href="https://cal.com/james-tagalog/tos-discovery" class="nav__link nav__link--cta" target="_blank" rel="noopener noreferrer">Book a Call</a></li>
@@ -369,6 +370,122 @@
               </span>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         SECTION: DEMO — Try a Live AI Agent
+         ============================================ -->
+    <section id="demo" class="section section--demo">
+      <div class="section__container">
+        <header class="section__header">
+          <span class="section__label reveal-up">Experience It</span>
+          <h2 class="section__title reveal-up">Try a Live Demo</h2>
+          <p class="section__subtitle reveal-up">Pick a scenario and get a live AI phone call in under 60 seconds.</p>
+        </header>
+
+        <div class="demo reveal-up">
+          <div class="demo__steps">
+            <span class="demo__step demo__step--active" data-step="1">1. Choose Scenario</span>
+            <span class="demo__step" data-step="2">2. Get a Call</span>
+          </div>
+
+          <div class="demo__grid" data-active-step="1">
+            <!-- LEFT PANEL: Scenario Selection -->
+            <div class="demo__panel demo__panel--scenarios">
+              <h3 class="demo__panel-title">Select a Scenario</h3>
+              <p class="demo__panel-desc">Choose the type of AI agent you want to experience:</p>
+
+              <fieldset class="demo__scenarios">
+                <legend class="sr-only">Demo scenario options</legend>
+
+                <label class="demo__pill">
+                  <input type="radio" name="scenario" value="customer-service" class="demo__pill-input" checked>
+                  <span class="demo__pill-label">
+                    <span class="demo__pill-name">Customer Service</span>
+                    <span class="demo__pill-desc">AI handles support questions, routes complex issues</span>
+                  </span>
+                </label>
+
+                <label class="demo__pill">
+                  <input type="radio" name="scenario" value="lead-qualification" class="demo__pill-input">
+                  <span class="demo__pill-label">
+                    <span class="demo__pill-name">Lead Qualification</span>
+                    <span class="demo__pill-desc">AI qualifies inbound leads, books meetings</span>
+                  </span>
+                </label>
+
+                <label class="demo__pill">
+                  <input type="radio" name="scenario" value="appointment-setting" class="demo__pill-input">
+                  <span class="demo__pill-label">
+                    <span class="demo__pill-name">Appointment Setting</span>
+                    <span class="demo__pill-desc">AI schedules calls, confirms availability</span>
+                  </span>
+                </label>
+              </fieldset>
+
+              <button type="button" class="demo__btn demo__btn--next" id="demoNext">
+                Next &rarr;
+              </button>
+            </div>
+
+            <!-- RIGHT PANEL: Form -->
+            <div class="demo__panel demo__panel--form">
+              <h3 class="demo__panel-title">Your Info</h3>
+              <p class="demo__panel-desc">We&rsquo;ll call you at this number with the <span class="demo__selected-scenario">Customer Service</span> demo.</p>
+
+              <form class="demo__form" id="demoForm" novalidate>
+                <div class="demo__field">
+                  <label for="demoName" class="demo__label">Name</label>
+                  <input type="text" id="demoName" name="name" class="demo__input" placeholder="Jane Smith" required autocomplete="name">
+                  <span class="demo__error" data-for="demoName"></span>
+                </div>
+
+                <div class="demo__field">
+                  <label for="demoPhone" class="demo__label">Phone Number</label>
+                  <input type="tel" id="demoPhone" name="phone" class="demo__input" placeholder="+1 (555) 123-4567" required autocomplete="tel">
+                  <span class="demo__error" data-for="demoPhone"></span>
+                </div>
+
+                <div class="demo__field">
+                  <label for="demoEmail" class="demo__label">Email</label>
+                  <input type="email" id="demoEmail" name="email" class="demo__input" placeholder="jane@company.com" required autocomplete="email">
+                  <span class="demo__error" data-for="demoEmail"></span>
+                </div>
+
+                <div class="demo__form-actions">
+                  <button type="button" class="demo__btn demo__btn--back" id="demoBack">
+                    &larr; Back
+                  </button>
+                  <button type="submit" class="demo__btn demo__btn--submit" id="demoSubmit" disabled>
+                    Get a Call
+                  </button>
+                </div>
+              </form>
+
+              <div class="demo__result demo__result--success" hidden>
+                <div class="demo__result-icon" aria-hidden="true">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <p class="demo__result-title">Call incoming!</p>
+                <p class="demo__result-text">You&rsquo;ll receive a call within 30 seconds. Pick up to experience the AI agent.</p>
+              </div>
+
+              <div class="demo__result demo__result--error" hidden>
+                <p class="demo__result-title">Something went wrong</p>
+                <p class="demo__result-text">Please try again, or <a href="#contact">contact me directly</a>.</p>
+                <button type="button" class="demo__btn demo__btn--retry" id="demoRetry">Try Again</button>
+              </div>
+
+              <div class="demo__result demo__result--placeholder" hidden>
+                <p class="demo__result-title">Demo Coming Soon</p>
+                <p class="demo__result-text">The live call feature is being connected. <a href="#contact">Book a call</a> to see a live demo.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

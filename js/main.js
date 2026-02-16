@@ -188,6 +188,162 @@
     });
   }
 
+  // --- Demo Section (Two-Step Interactive) ---
+  function initDemo() {
+    var grid = document.querySelector('.demo__grid');
+    var form = document.getElementById('demoForm');
+    var nextBtn = document.getElementById('demoNext');
+    var backBtn = document.getElementById('demoBack');
+    var submitBtn = document.getElementById('demoSubmit');
+    var retryBtn = document.getElementById('demoRetry');
+
+    if (!grid || !form) return;
+
+    var stepIndicators = document.querySelectorAll('.demo__step');
+    var scenarioInputs = document.querySelectorAll('.demo__pill-input');
+    var selectedScenarioSpan = document.querySelector('.demo__selected-scenario');
+    var nameInput = document.getElementById('demoName');
+    var phoneInput = document.getElementById('demoPhone');
+    var emailInput = document.getElementById('demoEmail');
+
+    var resultSuccess = document.querySelector('.demo__result--success');
+    var resultError = document.querySelector('.demo__result--error');
+    var resultPlaceholder = document.querySelector('.demo__result--placeholder');
+
+    // Set to true once Retell API is wired up
+    var BACKEND_READY = false;
+
+    var scenarioLabels = {
+      'customer-service': 'Customer Service',
+      'lead-qualification': 'Lead Qualification',
+      'appointment-setting': 'Appointment Setting'
+    };
+
+    function goToStep(step) {
+      grid.setAttribute('data-active-step', step);
+      stepIndicators.forEach(function (el) {
+        el.classList.toggle('demo__step--active', el.getAttribute('data-step') === String(step));
+      });
+      if (step === 2) {
+        var checked = document.querySelector('.demo__pill-input:checked');
+        if (checked && selectedScenarioSpan) {
+          selectedScenarioSpan.textContent = scenarioLabels[checked.value] || checked.value;
+        }
+        validateForm();
+      }
+    }
+
+    nextBtn.addEventListener('click', function () {
+      goToStep(2);
+    });
+
+    backBtn.addEventListener('click', function () {
+      goToStep(1);
+      hideAllResults();
+    });
+
+    scenarioInputs.forEach(function (input) {
+      input.addEventListener('change', function () {
+        if (selectedScenarioSpan) {
+          selectedScenarioSpan.textContent = scenarioLabels[input.value] || input.value;
+        }
+      });
+    });
+
+    function validateForm() {
+      var nameValid = nameInput.value.trim().length >= 2;
+      var phoneValid = /^\+?[\d\s\-().]{7,}$/.test(phoneInput.value.trim());
+      var emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
+      submitBtn.disabled = !(nameValid && phoneValid && emailValid);
+      return nameValid && phoneValid && emailValid;
+    }
+
+    function showFieldError(inputId, message) {
+      var errorEl = document.querySelector('.demo__error[data-for="' + inputId + '"]');
+      var inputEl = document.getElementById(inputId);
+      if (errorEl) errorEl.textContent = message;
+      if (inputEl) inputEl.classList.toggle('demo__input--invalid', !!message);
+    }
+
+    function clearFieldErrors() {
+      document.querySelectorAll('.demo__error').forEach(function (el) { el.textContent = ''; });
+      document.querySelectorAll('.demo__input').forEach(function (el) { el.classList.remove('demo__input--invalid'); });
+    }
+
+    [nameInput, phoneInput, emailInput].forEach(function (input) {
+      input.addEventListener('input', function () {
+        clearFieldErrors();
+        validateForm();
+      });
+    });
+
+    function hideAllResults() {
+      [resultSuccess, resultError, resultPlaceholder].forEach(function (el) {
+        if (el) el.hidden = true;
+      });
+      if (form) form.style.display = '';
+    }
+
+    function showResult(type) {
+      form.style.display = 'none';
+      if (type === 'success' && resultSuccess) resultSuccess.hidden = false;
+      if (type === 'error' && resultError) resultError.hidden = false;
+      if (type === 'placeholder' && resultPlaceholder) resultPlaceholder.hidden = false;
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      clearFieldErrors();
+
+      var hasErrors = false;
+      if (nameInput.value.trim().length < 2) { showFieldError('demoName', 'Please enter your name'); hasErrors = true; }
+      if (!/^\+?[\d\s\-().]{7,}$/.test(phoneInput.value.trim())) { showFieldError('demoPhone', 'Please enter a valid phone number'); hasErrors = true; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim())) { showFieldError('demoEmail', 'Please enter a valid email address'); hasErrors = true; }
+      if (hasErrors) return;
+
+      if (!BACKEND_READY) {
+        showResult('placeholder');
+        return;
+      }
+
+      submitBtn.classList.add('is-loading');
+      submitBtn.disabled = true;
+
+      var payload = {
+        name: nameInput.value.trim(),
+        phone: phoneInput.value.trim(),
+        email: emailInput.value.trim(),
+        scenario: document.querySelector('.demo__pill-input:checked').value
+      };
+
+      fetch('/api/call', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('Request failed');
+          return res.json();
+        })
+        .then(function () {
+          submitBtn.classList.remove('is-loading');
+          showResult('success');
+        })
+        .catch(function () {
+          submitBtn.classList.remove('is-loading');
+          submitBtn.disabled = false;
+          showResult('error');
+        });
+    });
+
+    if (retryBtn) {
+      retryBtn.addEventListener('click', function () {
+        hideAllResults();
+        goToStep(2);
+      });
+    }
+  }
+
   // --- Initialize ---
   document.addEventListener('DOMContentLoaded', function () {
     initTheme();
@@ -196,5 +352,6 @@
     initSmoothScroll();
     initHeroParallax();
     initMobileNav();
+    initDemo();
   });
 })();
